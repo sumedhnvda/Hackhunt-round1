@@ -2,6 +2,7 @@
 import React from "react";
 import { useGame } from "@/context/GameContext";
 import NavBar from "@/components/NavBar";
+import StartScreen from "@/components/StartScreen";
 import Stage1 from "@/components/Stage1";
 import Stage2 from "@/components/Stage2";
 import Stage3 from "@/components/Stage3";
@@ -13,6 +14,8 @@ export default function Home() {
 
   const renderStage = () => {
     switch (stage) {
+      case 0:
+        return <StartScreen />;
       case 1:
         return <Stage1 />;
       case 2:
@@ -24,7 +27,7 @@ export default function Home() {
       case 5:
         return <Victory />;
       default:
-        return <Stage1 />;
+        return <StartScreen />;
     }
   };
 

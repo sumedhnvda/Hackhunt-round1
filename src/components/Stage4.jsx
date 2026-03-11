@@ -28,6 +28,10 @@ export default function Stage4() {
         </span>
       </div>
 
+      <div className="hint-text neon-text" style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <p>The answer lies where most people see nothing.</p>
+      </div>
+
       <div style={{ maxWidth: '400px', margin: '0 auto' }}>
         <form onSubmit={handleSubmit} className="input-group">
           <input 

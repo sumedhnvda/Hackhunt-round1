@@ -5,27 +5,36 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
-  const [stage, setStage] = useState(1);
+  const [stage, setStage] = useState(0); // 0 corresponds to the start screen
   const [startTime, setStartTime] = useState(null);
   const [hintsUsed, setHintsUsed] = useState(0);
+  const [teamName, setTeamName] = useState("");
 
   // Initialize start time on first load
   useEffect(() => {
     const storedStartTime = localStorage.getItem("hackhunt_startTime");
     const storedStage = localStorage.getItem("hackhunt_stage");
     const storedHints = localStorage.getItem("hackhunt_hints");
+    const storedTeamName = localStorage.getItem("hackhunt_teamName");
 
     if (storedStartTime) {
       setStartTime(parseInt(storedStartTime, 10));
-    } else {
-      const now = Date.now();
-      setStartTime(now);
-      localStorage.setItem("hackhunt_startTime", now.toString());
     }
 
     if (storedStage) setStage(parseInt(storedStage, 10));
     if (storedHints) setHintsUsed(parseInt(storedHints, 10));
+    if (storedTeamName) setTeamName(storedTeamName);
   }, []);
+
+  const startGame = (name) => {
+    const now = Date.now();
+    setStartTime(now);
+    localStorage.setItem("hackhunt_startTime", now.toString());
+    setTeamName(name);
+    localStorage.setItem("hackhunt_teamName", name);
+    setStage(1);
+    localStorage.setItem("hackhunt_stage", "1");
+  };
 
   const nextStage = () => {
     setStage((prev) => {
@@ -47,9 +56,11 @@ export const GameProvider = ({ children }) => {
     localStorage.removeItem("hackhunt_startTime");
     localStorage.removeItem("hackhunt_stage");
     localStorage.removeItem("hackhunt_hints");
-    setStage(1);
-    setStartTime(Date.now());
+    localStorage.removeItem("hackhunt_teamName");
+    setStage(0);
+    setStartTime(null);
     setHintsUsed(0);
+    setTeamName("");
   };
 
   // 5 minutes in ms
@@ -60,11 +71,13 @@ export const GameProvider = ({ children }) => {
       value={{
         stage,
         nextStage,
+        startGame,
         startTime,
         hintsUsed,
         addHintPenalty,
         penaltyMs,
         resetGame,
+        teamName,
       }}
     >
       {children}

@@ -4,10 +4,9 @@ import { useGame } from "@/context/GameContext";
 import { useRouter } from "next/navigation";
 
 export default function Victory() {
-  const { startTime, penaltyMs, resetGame } = useGame();
+  const { startTime, penaltyMs, resetGame, teamName } = useGame();
   const [finalTime, setFinalTime] = useState("");
   const [totalMs, setTotalMs] = useState(0);
-  const [teamName, setTeamName] = useState("");
   const [status, setStatus] = useState("idle"); // idle, submitting, success, error
   const [errorMsg, setErrorMsg] = useState("");
   const router = useRouter();
@@ -82,24 +81,16 @@ export default function Victory() {
         {status === "idle" || status === "error" ? (
           <form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: '0 auto 2rem auto' }}>
             <p style={{ color: '#a8b2d1', fontSize: '0.9rem', marginBottom: '1rem' }}>
-              Submit your team name to lock in your score on the global leaderboard.
+              Submit your score to the global leaderboard.
             </p>
-            <div className="input-group" style={{ marginTop: '0' }}>
-              <input 
-                type="text" 
-                value={teamName}
-                onChange={(e) => setTeamName(e.target.value)}
-                placeholder="Enter Team Name..."
-                required
-                maxLength={50}
-                className={status === "error" ? "shake error-input" : ""}
-              />
+            <div className="input-group flex-col gap-4" style={{ marginTop: '0', alignItems: 'center' }}>
+              <div className="text-xl" style={{ color: 'var(--accent-cyan)' }}>Team: {teamName}</div>
               <button 
-                className="primary-btn" 
+                className="primary-btn w-full" 
                 type="submit"
                 disabled={status === "submitting"}
               >
-                I am done
+                Submit Score
               </button>
             </div>
             {status === "error" && <div style={{ color: 'var(--error-color)', marginTop: '0.5rem', fontSize: '0.85rem' }}>{errorMsg}</div>}
