@@ -1,66 +1,39 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import React from "react";
+import { useGame } from "@/context/GameContext";
+import NavBar from "@/components/NavBar";
+import Stage1 from "@/components/Stage1";
+import Stage2 from "@/components/Stage2";
+import Stage3 from "@/components/Stage3";
+import Stage4 from "@/components/Stage4";
+import Victory from "@/components/Victory";
 
 export default function Home() {
+  const { stage } = useGame();
+
+  const renderStage = () => {
+    switch (stage) {
+      case 1:
+        return <Stage1 />;
+      case 2:
+        return <Stage2 />;
+      case 3:
+        return <Stage3 />;
+      case 4:
+        return <Stage4 />;
+      case 5:
+        return <Victory />;
+      default:
+        return <Stage1 />;
+    }
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="main-layout">
+      <NavBar />
+      <div className="stage-wrapper">
+        {renderStage()}
+      </div>
+    </main>
   );
 }
