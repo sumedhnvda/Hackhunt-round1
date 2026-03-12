@@ -281,6 +281,62 @@ button.hint-btn:hover {
   border-color: var(--accent-cyan);
 }
 
+/* Hint button - used state */
+button.hint-btn.hint-btn-used {
+  opacity: 0.45;
+  cursor: not-allowed;
+  border-color: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.35);
+  pointer-events: none;
+}
+
+/* Penalty banner - slides in from top */
+.penalty-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: linear-gradient(90deg, #c0392b, #e74c3c, #c0392b);
+  color: #fff;
+  text-align: center;
+  padding: 0.7rem 1rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 20px rgba(242, 95, 92, 0.5);
+  animation: penaltyBannerIn 0.4s ease-out forwards, penaltyBannerOut 0.5s ease-in 2.5s forwards;
+}
+
+@keyframes penaltyBannerIn {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes penaltyBannerOut {
+  from { transform: translateY(0);    opacity: 1; }
+  to   { transform: translateY(-100%); opacity: 0; }
+}
+
+/* Timer penalty flash */
+.timer-penalty-flash {
+  animation: timerFlash 3s ease-out forwards;
+  border-color: var(--error-color) !important;
+  color: var(--error-color) !important;
+  box-shadow: 0 0 12px rgba(242, 95, 92, 0.6);
+}
+
+@keyframes timerFlash {
+  0%   { color: #fff;                    border-color: rgba(255,255,255,0.1); box-shadow: none; }
+  10%  { color: var(--error-color);      border-color: var(--error-color);    box-shadow: 0 0 18px rgba(242,95,92,0.8); }
+  50%  { color: var(--error-color);      border-color: var(--error-color);    box-shadow: 0 0 12px rgba(242,95,92,0.5); }
+  100% { color: #fff;                    border-color: rgba(255,255,255,0.1); box-shadow: none; }
+}
+
+/* mb-2 helper */
+.mb-2 { margin-bottom: 0.75rem; }
+
 /* Modal Specific */
 .modal-overlay {
   position: fixed;
