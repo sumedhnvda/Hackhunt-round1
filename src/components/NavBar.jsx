@@ -74,7 +74,7 @@ export default function NavBar() {
                   : "Request a rescue hint (+5 min penalty)"
               }
             >
-              {hintAlreadyUsed ? "🔦 Hint Used" : "🔦 Rescue Hint"}
+              {hintAlreadyUsed ? "Hint Used" : "Rescue Hint"}
             </button>
           )}
         </div>
